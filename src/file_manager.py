@@ -92,7 +92,11 @@ class CSVManager(FileManager):
         """
         Метод для чтения файла
         """
+
         with open(self.__filename, 'r', encoding='utf-8-sig') as file:
             reader = DictReader(file)
+            vacancies_list = []
+            for line in reader:
+                vacancies_list.append(line)
 
-        return reader
+        return vacancies_list
