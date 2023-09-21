@@ -40,25 +40,25 @@ class HeadHunterAPI(JobSearchAPI):
         self.formatted_vacancies = []
         self.job_title = ''
 
-    def get_vacancies(self, job_title):
+    def get_vacancies(self, job_title: str) -> list:
         """
         Метод получает информацию с API о вакансии по ключевому слову
         """
         self.job_title = job_title
-        params = {'text': job_title, "per_page": 20}
+        params = {'text': job_title, "per_page": 2}
         response = requests.get(URL_HH, params, verify=False)
         data = response.content.decode(encoding='utf-8')
         vacancies = json.loads(data)
 
         return self.format_vacancies(vacancies)
 
-    def format_vacancies(self, vacancies_data):
+    def format_vacancies(self, vacancies_data: dict) -> list:
         """
         Метод приводит данные о вакансиях к нужному формату:
         {'Вакансия': ...,
         'Город': ...,
         'Ссылка': ...,
-        'Зарплата': ...,
+        'Зарплата': {...},
         'Описание': ...}
         :param vacancies_data: Информация о вакансиях
         :return: отформатированный список вакансий
@@ -92,20 +92,20 @@ class SuperJobAPI(JobSearchAPI):
         self.job_title = ''
         self.formatted_vacancies = []
 
-    def get_vacancies(self, job_title):
+    def get_vacancies(self, job_title: str) -> list:
         """
         Метод получает информацию с API о вакансии по ключевому слову
         """
 
         self.job_title = job_title
-        params = {'keyword': self.job_title, 'count': 20}
+        params = {'keyword': self.job_title, 'count': 2}
         response = requests.get(URL_SJ, headers=self.headers, params=params)
         data = response.content.decode(encoding="utf-8")
         vacancies = json.loads(data)
 
         return self.format_vacancies(vacancies)
 
-    def format_vacancies(self, vacancies_data):
+    def format_vacancies(self, vacancies_data: dict) -> list:
         """
         Метод приводит данные о вакансиях к нужному формату:
         {'Вакансия': ...,
