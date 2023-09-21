@@ -14,8 +14,7 @@ class Vacancy:
         self.__salary = self.format_salary(self.__vacancy['Зарплата'])
         self.__description = self.__vacancy['Описание']
 
-    @staticmethod
-    def format_salary(salary):
+    def format_salary(self, salary):
         """
         Метод для обработки данных по зарплате
         :param salary: данные по зарплате
@@ -33,17 +32,28 @@ class Vacancy:
             else:
                 formatted_salary = max(salary['to'], salary["from"])
 
-            if salary['currency'] == 'USD':
-                formatted_salary *= 96.65
-            elif salary['currency'] == 'EUR':
-                formatted_salary *= 103.09
-            elif salary['currency'] == 'BYR':
-                formatted_salary *= 29.59
+            formatted_salary = self.currency_transfer(salary['currency'], formatted_salary)
 
         else:
             formatted_salary = max(salary)
 
         return round(formatted_salary)
+
+    def currency_transfer(self, currency, quantity):
+        """
+        Метод конвертирует валюту в рубли
+        :return: Сумма в рублях
+        """
+        if currency == 'USD':
+            quantity *= 96.65
+        elif currency == 'EUR':
+            quantity *= 103.09
+        elif currency == 'BYR':
+            quantity *= 29.59
+        elif currency == 'KZT':
+            quantity *= 0.203
+
+        return quantity
 
     @property
     def salary(self):
