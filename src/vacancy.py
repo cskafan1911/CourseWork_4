@@ -12,6 +12,7 @@ class Vacancy:
         self.__city = self.__vacancy['Город']
         self.__url = self.__vacancy['Ссылка']
         self.__salary = self.format_salary(self.__vacancy['Зарплата'])
+        self.__description = self.__vacancy['Описание']
 
     @staticmethod
     def format_salary(salary):
@@ -48,3 +49,22 @@ class Vacancy:
     def salary(self):
 
         return self.__salary
+
+    @staticmethod
+    def sorted_vacancies(data: list) -> list:
+        """
+        Сортирует скисок вакансий по зарплате
+        :param data:
+        :return:
+        """
+        data = sorted(data, key=lambda Vacancy: Vacancy.salary, reverse=True)
+
+        return data
+
+    @property
+    def get_vacancy(self):
+        """
+        Выводит на экран топ вакансий по зарплате
+        :return:
+        """
+        return f"{self.__vacancy_name}\n{self.__city}\n{self.__salary} рублей\n{self.__url}\n{self.__description}"
