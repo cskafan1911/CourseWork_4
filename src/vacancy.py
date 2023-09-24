@@ -14,7 +14,7 @@ class Vacancy:
         self.__salary = self.format_salary(self.__vacancy['Зарплата'])
         self.__description = self.format_description(self.__vacancy['Описание'])
 
-    def format_salary(self, salary):
+    def format_salary(self, salary: dict | list | None) -> int:
         """
         Метод для обработки данных по зарплате
         :param salary: данные по зарплате
@@ -39,7 +39,14 @@ class Vacancy:
 
         return round(formatted_salary)
 
-    def format_description(self, description):
+    @property
+    def salary(self):
+        """
+        Геттер для salary
+        """
+        return self.__salary
+
+    def format_description(self, description: str) -> str:
         """
         Метод обработки данных об описании вакансии
         :param description: Описание вакансии
@@ -51,7 +58,7 @@ class Vacancy:
 
         return description
 
-    def currency_transfer(self, currency, quantity):
+    def currency_transfer(self, currency: str, quantity: int) -> float:
         """
         Метод конвертирует валюту в рубли
         :return: Сумма в рублях
@@ -67,24 +74,19 @@ class Vacancy:
 
         return quantity
 
-    @property
-    def salary(self):
-
-        return self.__salary
-
     @staticmethod
-    def sorted_vacancies(data: list) -> list:
+    def sorted_vacancies(vacancies_list: list) -> list:
         """
         Сортирует список вакансий по зарплате
-        :param data: Список вакансий
+        :param vacancies_list: Список вакансий
         :return: Отсортированный список вакансий
         """
-        data = sorted(data, key=lambda Vacancy: Vacancy.salary, reverse=True)
+        sorted_list_vacancies = sorted(vacancies_list, key=lambda Vacancy: Vacancy.salary, reverse=True)
 
-        return data
+        return sorted_list_vacancies
 
     @staticmethod
-    def filter_vacancies(vacancies, filter_words):
+    def filter_vacancies(vacancies: list, filter_words: list) -> list:
         """
         Фильтрует список вакансий по ключевым словам, указанным пользователем
         :param vacancies: Список вакансий
@@ -94,7 +96,6 @@ class Vacancy:
         filtered_vacancies = []
 
         for vacancy in vacancies:
-
             for word in filter_words:
                 if word in vacancy.__description:
                     filtered_vacancies.append(vacancy)
@@ -104,9 +105,11 @@ class Vacancy:
         return filtered_vacancies
 
     @staticmethod
-    def get_top_vacancies(vacancies, top_n):
+    def get_top_vacancies(vacancies: list, top_n: int) -> list:
         """
         Возвращает топ вакансий по зарплате
+        :param vacancies: Список вакансий
+        :param top_n: Число выводимых вакансий
         :return: Топ N вакансий по зарплате
         """
         top_n_vacancies = []
@@ -117,7 +120,7 @@ class Vacancy:
 
         return top_n_vacancies
 
-    def get_vacancy(self):
+    def get_vacancy(self) -> str:
         """
         Выводит на экран информации о вакансиях
         :return: Информация о вакансии
