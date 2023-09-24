@@ -39,13 +39,6 @@ class Vacancy:
 
         return round(formatted_salary)
 
-    @property
-    def salary(self):
-        """
-        Геттер для salary
-        """
-        return self.__salary
-
     def format_description(self, description: str) -> str:
         """
         Метод обработки данных об описании вакансии
@@ -81,7 +74,7 @@ class Vacancy:
         :param vacancies_list: Список вакансий
         :return: Отсортированный список вакансий
         """
-        sorted_list_vacancies = sorted(vacancies_list, key=lambda Vacancy: Vacancy.salary, reverse=True)
+        sorted_list_vacancies = sorted(vacancies_list, key=lambda Vacancy: Vacancy.__salary, reverse=True)
 
         return sorted_list_vacancies
 
