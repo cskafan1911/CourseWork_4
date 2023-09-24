@@ -12,14 +12,14 @@ class JobSearchAPI(ABC):
     """
 
     @abstractmethod
-    def get_vacancies(self, job_title):
+    def get_vacancies(self, job_title: str) -> list:
         """
         Метод получает информацию с API о вакансии по ключевому слову
         """
         pass
 
     @abstractmethod
-    def format_vacancies(self, vacancies_data):
+    def format_vacancies(self, vacancies_data: list) -> list:
         """
         Метод приводит данные о вакансиях к нужному формату
         :param vacancies_data: Информация о вакансиях
@@ -40,7 +40,7 @@ class HeadHunterAPI(JobSearchAPI):
         self.formatted_vacancies = []
         self.job_title = ''
 
-    def get_vacancies(self, job_title: str) -> list:
+    def get_vacancies(self, job_title):
         """
         Метод получает информацию с API о вакансии по ключевому слову
         """
@@ -52,7 +52,7 @@ class HeadHunterAPI(JobSearchAPI):
 
         return self.format_vacancies(vacancies)
 
-    def format_vacancies(self, vacancies_data: dict) -> list:
+    def format_vacancies(self, vacancies_data):
         """
         Метод приводит данные о вакансиях к нужному формату:
         {'Вакансия': ...,
@@ -92,7 +92,7 @@ class SuperJobAPI(JobSearchAPI):
         self.job_title = ''
         self.formatted_vacancies = []
 
-    def get_vacancies(self, job_title: str) -> list:
+    def get_vacancies(self, job_title):
         """
         Метод получает информацию с API о вакансии по ключевому слову
         """
@@ -105,7 +105,7 @@ class SuperJobAPI(JobSearchAPI):
 
         return self.format_vacancies(vacancies)
 
-    def format_vacancies(self, vacancies_data: dict) -> list:
+    def format_vacancies(self, vacancies_data):
         """
         Метод приводит данные о вакансиях к нужному формату:
         {'Вакансия': ...,
