@@ -1,3 +1,4 @@
+import ast
 import json
 import os
 from csv import DictReader, DictWriter
@@ -9,6 +10,7 @@ class FileManager(ABC):
     """
     Абстрактный класс для работы с файлами
     """
+
     @abstractmethod
     def save_file(self, data):
         """
@@ -75,7 +77,7 @@ class CSVManager(FileManager):
         headers = [key for key in data[0].keys()]
 
         if os.path.exists(self.__filename):
-            with open(self.__filename, 'a',  encoding='utf-8-sig') as file:
+            with open(self.__filename, 'a', encoding='utf-8-sig') as file:
                 writer = DictWriter(file, fieldnames=headers)
                 for line in reader:
                     writer.writerow(line)
@@ -86,6 +88,23 @@ class CSVManager(FileManager):
                 writer.writeheader()
                 for line in reader:
                     writer.writerow(line)
+
+    @staticmethod
+    def format_csv_string(vacancies_list):
+        """
+        Метод переводит строковые значения зарплаты из файла CSV в нужный формат
+        :param vacancies_list: список вакансий прочитанный из CSV
+        :return: список с нужным форматом зарплаты
+        """
+        for vacancy in vacancies_list:
+            if len(vacancy['Зарплата']) == 0:
+                vacancy['Зарплата'] = None
+            elif vacancy['Зарплата'][0] == "[":
+                vacancy['Зарплата'] = ast.literal_eval(vacancy['Зарплата'])
+            elif vacancy['Зарплата'][0] == '{':
+                vacancy['Зарплата'] = ast.literal_eval(vacancy['Зарплата'])
+
+        return vacancies_list
 
     def read_file(self):
         """
@@ -98,4 +117,4 @@ class CSVManager(FileManager):
             for line in reader:
                 vacancies_list.append(line)
 
-        return vacancies_list
+        return self.format_csv_string(vacancies_list)
