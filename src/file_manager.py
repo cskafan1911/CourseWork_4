@@ -12,7 +12,7 @@ class FileManager(ABC):
     """
 
     @abstractmethod
-    def save_file(self, data):
+    def save_file(self, data: list):
         """
         Метод сохраняет данные в файл нужного формата
         :param data: Данные для сохранения
@@ -90,7 +90,7 @@ class CSVManager(FileManager):
                     writer.writerow(line)
 
     @staticmethod
-    def format_csv_string(vacancies_list):
+    def format_csv_string(vacancies_list: list) -> list:
         """
         Метод переводит строковые значения зарплаты из файла CSV в нужный формат
         :param vacancies_list: список вакансий прочитанный из CSV
