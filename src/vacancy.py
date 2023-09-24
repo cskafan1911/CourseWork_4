@@ -12,7 +12,7 @@ class Vacancy:
         self.__city = self.__vacancy['Город']
         self.__url = self.__vacancy['Ссылка']
         self.__salary = self.format_salary(self.__vacancy['Зарплата'])
-        self.__description = self.__vacancy['Описание']
+        self.__description = self.format_description(self.__vacancy['Описание'])
 
     def format_salary(self, salary):
         """
@@ -38,6 +38,18 @@ class Vacancy:
             formatted_salary = max(salary)
 
         return round(formatted_salary)
+
+    def format_description(self, description):
+        """
+        Метод обработки данных об описании вакансии
+        :param description: Описание вакансии
+        :return: Отредактированное описание
+        """
+        if description is None:
+
+            return "Описание отсутствует"
+
+        return description
 
     def currency_transfer(self, currency, quantity):
         """
@@ -71,7 +83,8 @@ class Vacancy:
 
         return data
 
-    def filter_vacancies(self, vacancies, filter_words):
+    @staticmethod
+    def filter_vacancies(vacancies, filter_words):
         """
         Фильтрует список вакансий по ключевым словам, указанным пользователем
         :param vacancies: Список вакансий
@@ -81,18 +94,33 @@ class Vacancy:
         filtered_vacancies = []
 
         for vacancy in vacancies:
+
             for word in filter_words:
-                if word in vacancy['Описание']:
+                if word in vacancy.__description:
                     filtered_vacancies.append(vacancy)
-                else:
-                    continue
+            else:
+                continue
 
         return filtered_vacancies
 
-    @property
+    @staticmethod
+    def get_top_vacancies(vacancies, top_n):
+        """
+        Возвращает топ вакансий по зарплате
+        :return: Топ N вакансий по зарплате
+        """
+        top_n_vacancies = []
+        for vacancy in vacancies:
+            if top_n > 0:
+                top_n_vacancies.append(vacancy)
+                top_n -= 1
+
+        return top_n_vacancies
+
     def get_vacancy(self):
         """
-        Выводит на экран топ вакансий по зарплате
-        :return:
+        Выводит на экран информации о вакансиях
+        :return: Информация о вакансии
         """
-        return f"{self.__vacancy_name}\n{self.__city}\n{self.__salary} рублей\n{self.__url}\n{self.__description}"
+        return (f"\n{self.__vacancy_name}\n{self.__city}\n{self.__salary} рублей\n{self.__url}\n{self.__description}\n"
+                f"________________________________________")
