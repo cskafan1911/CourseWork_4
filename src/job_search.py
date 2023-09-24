@@ -45,7 +45,7 @@ class HeadHunterAPI(JobSearchAPI):
         Метод получает информацию с API о вакансии по ключевому слову
         """
         self.job_title = job_title
-        params = {'text': job_title, "per_page": 15}
+        params = {'text': job_title, "per_page": 50}
         response = requests.get(URL_HH, params, verify=False)
         data = response.content.decode(encoding='utf-8')
         vacancies = json.loads(data)
@@ -98,7 +98,7 @@ class SuperJobAPI(JobSearchAPI):
         """
 
         self.job_title = job_title
-        params = {'keyword': self.job_title, 'count': 15}
+        params = {'keyword': self.job_title, 'count': 50}
         response = requests.get(URL_SJ, headers=self.headers, params=params)
         data = response.content.decode(encoding="utf-8")
         vacancies = json.loads(data)
