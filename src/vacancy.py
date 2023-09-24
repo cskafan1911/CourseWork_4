@@ -63,13 +63,31 @@ class Vacancy:
     @staticmethod
     def sorted_vacancies(data: list) -> list:
         """
-        Сортирует скисок вакансий по зарплате
-        :param data:
-        :return:
+        Сортирует список вакансий по зарплате
+        :param data: Список вакансий
+        :return: Отсортированный список вакансий
         """
         data = sorted(data, key=lambda Vacancy: Vacancy.salary, reverse=True)
 
         return data
+
+    def filter_vacancies(self, vacancies, filter_words):
+        """
+        Фильтрует список вакансий по ключевым словам, указанным пользователем
+        :param vacancies: Список вакансий
+        :param filter_words: Ключевые слова
+        :return: Отфильтрованный список вакансий по ключевым словам
+        """
+        filtered_vacancies = []
+
+        for vacancy in vacancies:
+            for word in filter_words:
+                if word in vacancy['Описание']:
+                    filtered_vacancies.append(vacancy)
+                else:
+                    continue
+
+        return filtered_vacancies
 
     @property
     def get_vacancy(self):
