@@ -33,6 +33,9 @@ class JSONManager(FileManager):
     """
 
     def __init__(self):
+        """
+        Инициализатор для класса JSONManager
+        """
         self.__filename = FILENAME + ".json"
 
     def save_file(self, data):
@@ -66,6 +69,9 @@ class CSVManager(FileManager):
     """
 
     def __init__(self):
+        """
+        Инициализатор для класса CSVManager
+        """
         self.__filename = FILENAME + ".csv"
 
     def save_file(self, data):

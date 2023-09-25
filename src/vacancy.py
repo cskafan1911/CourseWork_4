@@ -122,3 +122,13 @@ class Vacancy:
         """
         return (f"\n{self.__vacancy_name}\n{self.__city}\n{self.__salary} рублей\n{self.__url}\n{self.__description}\n"
                 f"________________________________________")
+
+    def __str__(self) -> str:
+        """
+        Метод для возвращения строкового представления объекта.
+        :return: строковое представление объекта
+        """
+        result = (f"Вакансия: {self.__vacancy}\n"
+                  f"Город: {self.__city}\n"
+                  f"Зарплата: {self.__salary}\n"
+                  f"Ссылка: {self.__url}")
