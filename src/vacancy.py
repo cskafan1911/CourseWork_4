@@ -39,7 +39,8 @@ class Vacancy:
 
         return round(formatted_salary)
 
-    def format_description(self, description: str) -> str:
+    @staticmethod
+    def format_description(description: str) -> str:
         """
         Метод обработки данных об описании вакансии
         :param description: Описание вакансии
@@ -51,7 +52,8 @@ class Vacancy:
 
         return description
 
-    def currency_transfer(self, currency: str, quantity: int) -> float:
+    @staticmethod
+    def currency_transfer(currency: str, quantity: int) -> float:
         """
         Метод конвертирует валюту в рубли
         :return: Сумма в рублях

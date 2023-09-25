@@ -11,8 +11,6 @@ def user_interaction():
     hh_api = HeadHunterAPI()
     # Экземпляр класса для поиска вакансий на SuperJob API
     sj_api = SuperJobAPI()
-    # Список вакансий полученных с API
-    vacancies = []
     # Список экземпляров класса Vacancy
     vacancies_list = []
 

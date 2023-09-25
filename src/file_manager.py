@@ -43,7 +43,7 @@ class JSONManager(FileManager):
         if os.path.exists(self.__filename):
             with open(self.__filename, 'r', encoding='utf-8') as file:
                 vacancy_data = json.load(file)
-                vacancy_data.extend(data)
+            vacancy_data.extend(data)
         else:
             vacancy_data = data
 
