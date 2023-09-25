@@ -132,3 +132,5 @@ class Vacancy:
                   f"Город: {self.__city}\n"
                   f"Зарплата: {self.__salary}\n"
                   f"Ссылка: {self.__url}")
+
+        return result
